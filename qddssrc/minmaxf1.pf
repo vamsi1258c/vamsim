@@ -1,0 +1,19 @@
+     A          R MINMAXRC1
+     A* PACKED DECIMAL:
+     A            DBPACKED1     63P 0       TEXT('Packed Decimal')
+     A                                      COLHDG('PACKED' 'DECIMAL')
+     A            DBPACKED2     63P 5       TEXT('PACKED DECIMAL')
+     A                                      COLHDG('PACKED' 'DECIMAL')
+     A
+     A* ZONED DECIMAL:
+     A            DBZONED1      63S 0       TEXT('Zoned Decimal')
+     A                                      COLHDG('ZONED' 'DECIMAL')
+     A            DBZONED2      63S 5       TEXT('Zoned Decimal')
+     A                                      COLHDG('ZONED' 'DECIMAL')
+     A* BINARY:
+     A            DBBINARY      18B         TEXT('Binary')
+     A                                      COLHDG('BINARY')
+     A* FLOATING POINT:
+     A            DBFLOAT       17F 0       TEXT('Floating Point')
+     A                                      COLHDG('FLOAT')
+     A                                      FLTPCN(*DOUBLE)

@@ -1,0 +1,57 @@
+    /*------------------------------------------------------------------*/
+    /*  LSTIFSFLS : This program receives IFS directory and file type   */
+    /*              as input parameters and lists all the files in the  */
+    /*              IFS directory with that file type into FILESLIST    */
+    /*              file in QTEMP library                               */
+    /*                                                                  */
+    /*  Date      : 05/29/20                                            */
+    /*------------------------------------------------------------------*/
+    Pgm  Parm(&Dir &Typ &Err)
+
+      Dcl Var(&Dir)    Type(*Char) Len(50)     /* Directory  - In */
+      Dcl Var(&Typ)    Type(*Char) Len(10)     /* Files Type - In */
+      Dcl Var(&Err)    Type(*Char) Len(30)     /* Error Message - Out */
+
+      Dcl Var(&QshCmd) Type(*Char) Len(60)     /* QSH Command - Work Variable */
+      Dcl Var(&Filter) Type(*Char) Len(20)     /* QSH Filetr - Work Variable */
+
+      ChgVar Var(&Err) Value(' ')
+
+      CD Dir(&Dir)
+      MonMsg MsgId(CPFA09C) Exec(Do)
+        ChgVar Var(&Err) Value('NOT AUTHORIZED')
+        Return
+      EndDo
+
+      /* Delete holding file If exists */
+      DltF File(Qtemp/FilesList)
+      MonMsg MsgId(CPF0000)
+
+      /* Create A PF to hold List of files */
+      CrtPf File(Qtemp/FilesList) RcdLen(50)
+      MonMsg MsgId(CPF0000) Exec(Do)
+        ChgVar Var(&Err) Value('FAILED TO CREATE FILESLIST IN QTEMP')
+        Return
+      EndDo
+
+      /* Override QSH output to FilesList in Qtemp */
+      OvrDbf File(StdOut) ToFile(QTEMP/FilesList) OvrScope(*CallLvl)
+      MonMsg MsgId(CPF0000) Exec(Do)
+        ChgVar Var(&Err) Value('FAILED OVERRIDE TO FILESLIST IN QTEMP')
+        Return
+      EndDo
+
+      /* Build Qsh Command Strings */
+      ChgVar Var(&Filter) Value('*.' *Tcat &Typ)
+      ChgVar Var(&QshCmd) Value('ls' *Bcat &Filter)
+
+      /* Run Qsh Command to list Files */
+      Qsh Cmd(&QSHCMD)
+      MonMsg MsgId(CPF0000) Exec(Do)
+        ChgVar Var(&Err) Value('FAILED LIST FILES IN IFS PATH')
+        Return
+      EndDo
+
+      DltOvr File(StdOut) Lvl(*)
+
+    EndPgm

@@ -1,0 +1,13 @@
+      *---------------------------------------------------------------*
+      *  FILE NAME: SHPRDS                                            *
+      * --------------------------------------------------------------*
+
+     A                                      UNIQUE
+     A          R SREC
+     A            LPN           12S 0
+                                            COLHDG('LPN')
+                                            TEXT('LPN')
+     A            LABELDATA  10000A
+                                            COLHDG('LABEL DATA')
+                                            TEXT('LABEL DATA')
+     A          K LPN

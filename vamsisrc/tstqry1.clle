@@ -1,0 +1,16 @@
+             PGM        PARM(&MNTH)
+             DCL        VAR(&VAR1) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&ACC1) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&MONTH) TYPE(*CHAR) LEN(6)
+             DCLF       FILE(TESTPFB)
+ READ:
+             RCVF       RCDFMT(TESTPFB1)
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(END))
+             CHGVAR     VAR(&VAR1) VALUE(%SST(&MNTH 5 2))
+             OPNQRYF    FILE((TESTPFB)) QRYSLT('&MNTH *EQ &VAR1')
+             CHGVAR     VAR(&ACC1) VALUE(&ACC)
+             SNDUSRMSG  (&ACC1)
+             GOTO       CMDLBL(READ)
+ END:
+             SNDUSRMSG  MSG('END OF FILE REACHED')
+             ENDPGM

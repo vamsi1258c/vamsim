@@ -1,0 +1,16 @@
+             PGM        PARM(&INPUT)
+             DCL        VAR(&DQNAME) TYPE(*CHAR) LEN(10) +
+                          VALUE('EXAMDQ')
+             DCL        VAR(&DQLIB) TYPE(*CHAR) LEN(10) VALUE('*LIBL')
+             DCL        VAR(&DQSNDLEN) TYPE(*DEC) LEN(5 0)
+             DCL        VAR(&DQSNDDATA) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&INPUT) TYPE(*CHAR) LEN(20)
+
+             CHGVAR     VAR(&DQSNDDATA) VALUE(&input)
+             CHGVAR     VAR(&DQSNDLEN) VALUE(%LEN(&DQSNDDATA))
+
+/* Send data queue */
+             CALL       PGM(QSNDDTAQ) PARM(&DQNAME &DQLIB &DQSNDLEN +
+                          &DQSNDDATA)
+
+             ENDPGM

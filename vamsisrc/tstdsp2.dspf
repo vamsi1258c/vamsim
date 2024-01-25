@@ -1,0 +1,19 @@
+     A*%%TS  SD  20181105  023639  VAMSIM      REL-V7R3M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R FORMAT1
+     A*%%TS  SD  20181105  023639  VAMSIM      REL-V7R3M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                  4 28'String Manipulation Screen'
+     A                                      COLOR(WHT)
+     A                                  4 12DATE
+     A                                      EDTCDE(Y)
+     A                                  5 12TIME
+     A                                  9 13'Input String:'
+     A            STRING        40A  I  9 27
+     A                                 10 13'Output'
+     A                                 10 25':'
+     A            STRING2       40A  O 10 27
+     A                                 20 12'F3=Exit'
+     A                                      COLOR(BLU)
+     A            MSG           40   O 15 13COLOR(WHT)

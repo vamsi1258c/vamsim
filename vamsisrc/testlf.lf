@@ -1,0 +1,4 @@
+     A*  LOGICAL FOR TESTPF
+     A*
+     A          R SREC                      PFILE(TESTPF)
+     A          K EMPDOJ

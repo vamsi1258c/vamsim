@@ -1,0 +1,3 @@
+     A          R MINMAXRC3
+     A            DBHEXADEC  32766H         TEXT('Hexa Decimal')
+     A                                      COLHDG('HEXA' 'DECIMAL')

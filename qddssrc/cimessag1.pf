@@ -1,0 +1,51 @@
+      *****************************************************************
+      *  (C) Copyright 2014       Credentials Solutions, LLC
+      *  All Rights Reserved
+      *
+      *     * * * *  Credentials Confidential Source * * * * * * *
+      *  THIS PROGRAM IS AN UNPUBLISHED WORK FULLY PROTECTED BY THE
+      *  UNITED STATES COPYRIGHT LAWS AND IS CONSIDERED A TRADE
+      *  SECRET BELONGING TO THE COPYRIGHT HOLDER.
+      *****************************************************************
+      *
+      *  DATABASE:    CIMESSAG1   -  CREDENTIALS INC Master School
+      *                              Messages file
+      *
+      *  Author      : JJG
+      *  Date Written: 09/03/2014
+      *****************************************************************
+      * 11/11/14 JJG added UNIQUE Keyword
+      * 10/13/14 JWG Changed JM_MSG_SEQ to be 3p 0
+      * 09/26/14 JWG Added a 30 char JM_DESCRP for a short msg description
+      * 09/08/14 JWG Change key to file, moved JM_LANG to end of key and
+      *              added JM_MSG_SEQ, changed positions in file to match
+      * 09/03/14 JJG New database
+      *****************************************************************
+
+     A                                      UNIQUE
+     A                                      REF(CLLCFLDREF)
+     A          R MESSAGEREC                TEXT('CI Master School Msg Rec')
+     A            JM_FICE   R               REFFLD(FICE)
+     A            JM_APPLID R               REFFLD(APPLID)
+     A                                      ALIAS(APPLICATION_ID)
+     A            JM_SCRN_IDR    3A         REFFLD(SCREEN_ID)
+     A            JM_SCRSECT     2A         COLHDG('Screen' 'Section')
+     A            JM_MSG_SEQ     3P 0       COLHDG('Msg' 'Seq')
+     A            JM_LANG   R               REFFLD(LANGUAGE)
+     A            JM_STATUS R               REFFLD(STATUS)
+     A                                      ALIAS(MESSAGE_STATUS)
+     A            JM_DATEON R               REFFLD(DATEON)
+     A            JM_DATEOFFR               REFFLD(DATEOFF)
+     A            JM_CATEGRYR               REFFLD(CATEGRY)
+     A            JM_DESCRP R   30A         REFFLD(DESCRP)
+     A            JM_TEXT   R  600A         REFFLD(TEXT)
+
+     A            JM_CHGDATER               REFFLD(CHGDATE)
+     A            JM_CHGUSERR               REFFLD(CHGUSER)
+
+     A          K JM_FICE
+     A          K JM_APPLID
+     A          K JM_SCRN_ID
+     A          K JM_SCRSECT
+     A          K JM_MSG_SEQ
+     A          K JM_LANG

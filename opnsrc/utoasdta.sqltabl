@@ -1,0 +1,13 @@
+--  Table   : UTOASDTA
+--  Purpose : OAS - Workfile to create JSON file in IFS
+--  Date    : 08/20/20
+--
+Create table UTOASDTA (
+ OASDATA varChar(32000)    not null default ''
+ ) RCDFMT UTOASDTRC;
+
+Label on table UTOASDTA is 'OAS - Workfile to create JSON file in IFS';
+
+Label on column UTOASDTA.OASDATA text is
+      'OAS - JSON Data';
+

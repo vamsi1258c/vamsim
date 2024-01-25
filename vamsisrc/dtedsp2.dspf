@@ -1,0 +1,13 @@
+     A*%%TS  SD  20181105  014523  VAMSIM      REL-V7R3M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R FORMAT1
+     A*%%TS  SD  20181105  014523  VAMSIM      REL-V7R3M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                  3 30'Date Validation Screen'
+     A                                      COLOR(WHT)
+     A                                  8 12'Input Date :'
+     A            MSG           40A  O 14 12COLOR(WHT)
+     A                                 20 12'F3=Exit'
+     A                                      COLOR(BLU)
+     A            DATE           6   I  8 26

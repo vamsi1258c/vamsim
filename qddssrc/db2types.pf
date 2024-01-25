@@ -1,0 +1,161 @@
+      *=======================================================================*
+      *=                                                                      =
+      *= File Name   : DB2TYPES - DB2 Data Types Demonstration Tables         =
+      *= Author      : SenecaGlobal                                           =
+      *= Date Written: 17/07/2020                                             =
+      *=                                                                      =
+      *= DATA TYPE:                                                           =
+      *= ---------                                                            =
+      *= - Data type is specified in position 35 with one character.          =
+      *=     Eg: 'S' in position 35 indicates zoned decimal data.             =
+      *=         'A' in position 35 indicates character data.                 =
+      *= - If no data type is specified in position 35, data type defaults to =
+      *=   A (character) if the decimal positions 36 through 37 are blank     =
+      *=   P (packed decimal) if the decimal positions 36 through 37 has numbr=
+      *=                                                                      =
+      *= LENGTH:                                                              =
+      *= ------                                                               =
+      *= - Length is specified in positions 30 through 34.                    =
+      *= - We cannot define some types without length. Eg: Dec, Char types    =
+      *= - And we do not (cannot) specify length for some types. For these    =
+      *=   types length is inherited from data type. Eg: Date, Time           =
+      *=                                                                      =
+      *= DECIMALS:                                                            =
+      *= --------                                                             =
+      *= - For decimal data types, we need to specify decimal positions along =
+      *=   with length.                                                       =
+      *=   Eg: In 10P 5 number looks like nnnnnn.nnnnn                        =
+      *=                                                                      =
+      *=======================================================================*
+     A*
+     A          R DB2TYPESRC
+     A*------------------------------------------------------------------------
+     A* PACKED DECIMAL:
+     A* --------------
+     A* Packed decimal is one of the mostly used data types to represent numbers
+     A* If both length and decimal positions(as below) are specified without any
+     A* specific data type, then that is considered as packed decimal data type.
+     A* Max length of packed decimal column is 63 digits
+     A* Packed decimal stores 2 digits in one byte to save space hence the name
+     A* Other advantage of packed decimals is decimal accuracy
+     A            DB_PKDDEC      5  0       TEXT('Row Identifier')
+     A                                      COLHDG('ROW' 'IDENTIFIER')
+     A*
+     A            DB_PKDDC5     10P 5       TEXT('Packed Decimal')
+     A                                      COLHDG('PACKED' 'DECIMAL')
+     A*
+     A* ZONED DECIMAL:
+     A* -------------
+     A* Zoned decimal is an alternative to packed decimals. These 2 types are
+     A* interchangeably used. But the difference is how they are stored in the
+     A* memory. To store a n-digit number, with zoned data type we need n bytes
+     A* whereas in packed data type it takes CEIL((n+1)/2) bytes are needed.
+     A* the last byte(right most) is used for sign. So to store 5 digits, packed
+     A* decimal requires 3 bytes in memory and zoned decimal requires 5 bytes.
+     A* Max length of zoned decimal column is 63 digits same as packed decimal
+     A* Zoned Numbers are always signed.
+     A*
+     A            DB_ZONDEC      8S 0       TEXT('Zoned Decimal')
+     A                                      COLHDG('ZONED' 'DECIMAL')
+     A*
+     A            DB_ZONDC4     10S 4       TEXT('Zoned Decimal4')
+     A                                      COLHDG('ZONED' 'DECIMAL4')
+     A* BINARY:
+     A* ------
+     A* We do not use binary numbers often.
+     A* Binary numbers store each bit is represented as power of 2
+     A* Number 9 will be saved in memory something like '1001' in binary.
+     A* One reason of th reasons that we may gor binary is space conservation
+     A* they occupy less space in memory.
+     A* Maximum length is 18 digits
+     A*
+     A            DB_BINARY      4B         TEXT('Binary')
+     A                                      COLHDG('BINARY')
+     A* FLOATING POINT:
+     A* --------------
+     A* Floating point is a format that stores real numbers
+     A* We rarely see floating point numbers in Db2/400 database
+     A* They are usually used to hold very large numbers or very small numbers
+     A* that cannot be handled with normal decimals
+     A* Float can be defined with single precision (up to 9 )
+     A* Float can be defined with double precision (up to 17)
+     A            DB_FLOATS      8F         TEXT('Floating Point')
+     A                                      COLHDG('FLOAT')
+     A            DB_FLOATB     13F         TEXT('Floating Point-Double')
+     A                                      COLHDG('DOUBLE')
+     A                                      FLTPCN(*DOUBLE)
+     A* CHARACTER:
+     A* ---------
+     A* Char data types is one of the widely used data type in DB2/400
+     A* More than half of the fields (columns) are character types
+     A* This is used to hold alpha numeric values.
+     A* Maximum length is 32766 characters
+     A            DB_CHAR       50A         TEXT('Character')
+     A                                      COLHDG('CHARACTER')
+     A* DATE:
+     A* ----
+     A* Date data types are used to store date data
+     A* Date can be stored in different formats - *ISO, *USA, *MDY etc.
+     A* The default format used is *ISO(2020-07-17)
+     A* If we want to store in a specific format, we can specify that
+     A* Date is stored with seperators in database
+     A* We usually use decimal types for storing dates rather than date type
+     A            DB_DATE         L         TEXT('Date')
+     A                                      COLHDG('DATE')
+     A*
+     A            DB_DATEUSA      L         TEXT('Date_USA')   DATFMT(*USA)
+     A                                      COLHDG('DATE_USA')
+     A* TIME:
+     A* ----
+     A* Time Type is used to store Time. By default it is stored HH.MM.SS
+     A* format and most of the times we use that default format
+     A* Usually we use 6 digit decimals to store time data instead of time type
+     A*
+     A            DB_TIME         T         TEXT('Time')
+     A                                      COLHDG('TIME')
+     A*
+     A* TIMESTAMP:
+     A* ---------
+     A* TimeStamp is used to store Date+Time in column
+     A* The format is YYYY-MM-DD HH.MM.SS.XXXXXX. XXXXXX are milliseconds
+     A*
+     A            DB_TSTAMP       Z         TEXT('Time Stamp')
+     A                                      COLHDG('TIME STAMP')
+     A* HEXA DECIMAL:
+     A* ------------
+     A* Each alphanumeric character or sepcial sign is represented with 2
+     A* 2 hexa decimal characters (EBCDIC) in memory
+     A* Eg:
+     A*  digits 0-9 are
+     A*       x'F0', x'F1', x'F2', x'F3', x'F4', x'F5', x'F6', x'F7', x'F8', x'F9'
+     A*  Capital Letters A-Z are
+     A*       x'C1', x'C2', x'C3', x'C4'.........
+     A*  Small Letters a-z are
+     A*       x'81', x'82', x'83', x'84'.........
+     A*
+     A*  So for decimal 999, we would use x'F9F9F9'
+     A*     for 'Hello', we would use x'C885939396'
+     A*  In memory space, 'Hello' requirs 10 bytes since it is stored in hexa
+     A*
+     A            DB_HEXDEC     10H         TEXT('Hexa Decimal')
+     A                                      COLHDG('HEXA' 'DECIMAL')
+     A*
+     A*           DB_DBCSJ      10J         TEXT('DBCS-Only')
+     A*                                     COLHDG('DBCS-ONLY')
+     A*
+     A*           DB_DBCSE      10E         TEXT('DBCS-Either')
+     A*                                     COLHDG('DBCS-EITHER')
+     A*
+     A*           DB_DBCSO      10O         TEXT('DBCS-Open')
+     A*                                     COLHDG('DBCS-OPEN')
+     A*
+     A*           DB_DBCSG      10G         TEXT('DBCS-Graphic')
+     A*                                     COLHDG('DBCS-GRAPHIC')
+     A*
+     A* BINARY CHARACTER:
+     A* ----------------
+     A* It differs from character how this is saved in memory
+     A* it is saved in EBCDIC format in memory
+     A* Not often used
+     A            DB_BCHAR      105         TEXT('Binary Character')
+     A                                      COLHDG('BINARY' 'CHARACTER')

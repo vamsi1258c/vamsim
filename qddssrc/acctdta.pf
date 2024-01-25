@@ -1,0 +1,7 @@
+
+     A          R ACCTDTA1
+     A            FNAME         20A
+     A            LNAME         20A
+     A            ACCNO         20P
+     A            BALANCE       20P 0
+     A            CITY          10A

@@ -1,0 +1,47 @@
+             PGM        PARM(&LIB &SRC)
+             DCL        VAR(&LIB) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SRC) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&FROMPATH) TYPE(*CHAR) LEN(60)
+             DCL        VAR(&TOPATH) TYPE(*CHAR) LEN(60)
+             DCL        VAR(&DIR) TYPE(*CHAR) LEN(60)
+
+             DCLF MBRLST
+
+             CHGVAR     VAR(&DIR) VALUE('/home/VAMSIM/' *TCAT &LIB)
+             CRTDIR DIR(&DIR)
+             MONMSG     MSGID(CPF0000)
+
+             CHGVAR     VAR(&DIR) VALUE(&DIR *TCAT '/' *TCAT &SRC)
+             CRTDIR DIR(&DIR)
+             MONMSG     MSGID(CPF0000)
+
+
+             /* Get List of members into an outfile  */
+             CLRPFM     FILE(QTEMP/MBRLST) MBR(*FIRST)
+             MONMSG     MSGID(CPF0000)
+
+             DSPFD      FILE(&LIB/&SRC) TYPE(*MBRLIST) +
+                          OUTPUT(*OUTFILE) FILEATR(*ALL) +
+                          OUTFILE(QTEMP/MBRLST)
+ READ:       RCVF
+             MONMSG     MSGID(CPF0000) EXEC(GOTO CMDLBL(END))
+
+             /* Build the IFS path to Copy from and to */
+             CHGVAR     VAR(&FROMPATH) VALUE('/QSYS.LIB/' *TCAT &LIB +
+                          *TCAT '.LIB/' *TCAT &SRC *TCAT '.FILE/' +
+                          *TCAT &MLNAME *TCAT '.MBR')
+
+             CHGVAR     VAR(&TOPATH) VALUE('/home/VAMSIM/' *TCAT +
+                          &LIB *TCAT '/' *TCAT &SRC *TCAT '/' *TCAT +
+                          &MLNAME *TCAT '.txt')
+
+
+      /*     CPY        OBJ(&FROMPATH) TOOBJ(&TOPATH) DTAFMT(*TEXT) +
+                          REPLACE(*YES)                               */
+
+             CPYTOSTMF  FROMMBR(&FROMPATH) TOSTMF(&TOPATH) +
+                          STMFCCSID(*PCASCII)
+
+             GOTO       CMDLBL(READ)
+
+ END:        ENDPGM

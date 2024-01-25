@@ -1,0 +1,3 @@
+     A          R MINMAXRC4
+     A            DBBINCHAR  327665         TEXT('Binary Character')
+     A                                      COLHDG('BINARY' 'CHARACTER')

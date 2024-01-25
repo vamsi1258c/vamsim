@@ -1,0 +1,179 @@
+     H        1   Y
+      *****************************************************************
+      *                                                               *
+      *  Program Id. . : HSR230                                       *
+      *                                                               *
+      *  Description . : Delivery Note Print Processing               *
+      *                                                               *
+      *  System  . . . : High Street Vouchers Control & Tracking      *
+      *                                                               *
+      *  Author  . . . : Colin N. Jones   (Intec Systems Limited)     *
+      *                                                               *
+      *  Date Written  : February 1999                                *
+      *                                                               *
+      *****************************************************************
+      * Indicator usage:
+      *  90 - Main Order Header read result.
+      *  91 - Order Delivery Details read result.
+      *  92 - Product Details
+      *  93 - Order Details lines read result.
+      *  94 - Customer Details read result.
+      *
+      *****************************************************************
+      * Maintenance   :
+      * Fix/Chg Ref. Date       Description.
+      * ------------ ---------- -----------------------------------
+      *================================================================
+      *
+      * Sales Order Header File
+     FHSLORDHAUF  E           K        DISK
+      *
+      * Sales Order Detail File
+     FHSLORDDAIF  E           K        DISK
+      *
+      * Sales Order Delivery Detail File
+     FHSLODELAIF  E           K        DISK
+      *
+      * Customer Master File
+     FHSLCUSTAIF  E           K        DISK
+      *
+      * Product Master File
+     FHSLPRODAIF  E           K        DISK
+      *
+     FHSW230  O   E                    PRINTER
+      *
+      *****************************************************************
+      *----------------------------------------------------------------
+      *
+     IXDATE       DS
+     I                                        1   80CYMD
+     I                                        1   20CC
+     I                                        3   80YMD
+     I                                        3   40YY
+     I                                        5   60MM
+     I                                        7   80DD
+      *
+     IXXXSDS     SDS                            429
+     I                                     *PROGRAM XPGMID
+     I                                      244 253 XJOBNO
+     I                                      254 263 XUSRID
+      *  Main Line Processing
+      *************************************************************
+      *
+     C           ORDERX    SETLLHSFORDH
+b1   C           *INLR     DOUEQ*ON
+      *
+     C                     READ HSFORDH                  90
+      *
+      * If Order number not found then quit program
+      * otherwise process Order record.
+      *
+     C           ORDERX    IFNE JSORD
+     C                     MOVE *ON       *INLR
+     C                     LEAVE
+     C                     ENDIF
+      *
+     C           *IN90     IFEQ *ON
+     C                     MOVE *ON       *INLR
+     C                     ELSE
+     C                     MOVE DELVRY    JDELN
+     C                     MOVE DELVRY    JDELNX
+     C                     Z-ADD0         DELNX
+     C                     MOVE DELVRY    DELNX  120
+     C*                    MOVE CYMD      JDELD
+     C*                    MOVE 'D'       JSTAT
+      *
+     C                     TIME           XXTME   60
+     C                     MOVE XXTME     JCRTT
+     C                     MOVE CYMD      JCRTD
+     C                     MOVE XPGMID    JCRTP
+     C                     MOVE XJOBNO    JCRTS
+     C                     MOVE XUSRID    JCRTU
+     C                     UPDATHSFORDH
+     C                     EXSR SR01
+     C                     ENDIF
+      *
+e1   C                     ENDDO
+      *
+     C                     WRITEFOOTER
+      ****************************************************************
+      *  Process Record
+      *****************************************************************
+     C           SR01      BEGSR
+      *          ***************
+      *
+      * Get Delivery Address Details
+      * and write delivery details
+      *
+     C           ORDERX    CHAINHSLODELA             91
+     C           JCUST     CHAINHSLCUSTA             94
+     C           *IN94     IFEQ *OFF
+     C                     MOVE DD        JINDD
+     C                     MOVE MM        JINMM
+     C                     MOVE YY        JINYY
+     C                     WRITEHEADER1
+     C                     WRITEDETL
+     C                     ENDIF
+      *
+      * Get Order Detail lines & print. Only quit if no more order line
+      * exist.
+      *
+     C                     MOVE *OFF      *IN93
+      *
+     C           ORDERX    SETLLHSLORDDA
+     C           *IN93     DOWNE*ON
+     C                     READ HSLORDDA                 93
+      *
+     C           ORDERX    IFNE KSORD
+     C                     MOVE *ON       *IN93
+     C                     LEAVE
+     C                     ENDIF
+      *
+     C           *IN93     IFNE *ON
+      *
+      * Get product description.
+      *
+     C           KPROD     CHAINHSLPRODA             92
+     C                     MOVELKPROD     PRODX   4
+     C                     MOVELNDESC     PDESCX 40
+     C                     WRITEDETL1
+     C                     WRITEDETL2
+     C                     ELSE
+     C                     LEAVE
+     C                     ENDIF
+      *
+      *
+     C                     ENDDO
+      *          ***************
+     C                     ENDSR
+      *****************************************************************
+      *  Initial Subroutine.
+      *****************************************************************
+     C           *INZSR    BEGSR
+      *
+      * Prepare message subfile.
+      *
+     C           *ENTRY    PLIST
+     C                     PARM           ORDX    8
+     C                     MOVE ORDX      ORDERX  80
+     C                     MOVE ORDX      DELVRY  8
+      *
+      * Get Delivery Number & increment by 1.
+     C*          *NAMVAR   DEFN HSADELN   DELVRY  8
+     C*          *LOCK     IN   DELVRY
+     C*                    MOVE DELVRY    DEL#    80
+     C*                    ADD  1         DEL#
+     C*                    MOVE DEL#      DELVRY
+     C*                    OUT  DELVRY
+      *
+      * Set up current CCYYMMDD
+      *
+     C                     MOVE UDATE     YMD     60
+     C           YY        IFGE 40
+     C           YY        ANDLE99
+     C                     Z-ADD19        CC
+     C                     ELSE
+     C                     Z-ADD20        CC
+     C                     ENDIF
+      *
+     C                     ENDSR

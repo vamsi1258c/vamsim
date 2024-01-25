@@ -1,0 +1,78 @@
+--  Generate SQL 
+
+--  Version:                   	V7R3M0 160422 
+
+--  Generated on:              	05/15/20 12:28:51 
+
+--  Relational Database:       	SENECA 
+
+--  Standards Option:          	Db2 for i 
+
+  
+
+CREATE TABLE ARCAD_SMPL.HSPCLAM ( 
+
+--  SQL150B   10   REUSEDLT(*NO) in table HSPCLAM in ARCAD_SMPL ignored. 
+
+	KATYPE CHAR(3) CCSID 297 NOT NULL DEFAULT '' , 
+
+	KACUST CHAR(8) CCSID 297 NOT NULL DEFAULT '' , 
+
+	KAPROD CHAR(13) CCSID 297 NOT NULL DEFAULT '' , 
+
+	KAQTYN DECIMAL(15, 0) NOT NULL DEFAULT 0 , 
+
+	KADELT CHAR(1) CCSID 297 NOT NULL DEFAULT '' )   
+
+	  
+
+	RCDFMT HSFCLAM    ; 
+
+  
+
+LABEL ON TABLE ARCAD_SMPL.HSPCLAM 
+
+	IS 'Claims Input' ; 
+
+  
+
+LABEL ON COLUMN ARCAD_SMPL.HSPCLAM 
+
+( KATYPE IS 'Sales Order Type' , 
+
+	KACUST IS 'Customer A/c No.' , 
+
+	KAPROD IS 'Stock Item' , 
+
+	KAQTYN IS 'Quantity' , 
+
+	KADELT IS 'Deletion Flag' ) ; 
+
+  
+
+LABEL ON COLUMN ARCAD_SMPL.HSPCLAM 
+
+( KATYPE TEXT IS 'Sales Order Type' , 
+
+	KACUST TEXT IS 'Customer A/c No.' , 
+
+	KAPROD TEXT IS 'Stock Item' , 
+
+	KAQTYN TEXT IS 'Quantity' , 
+
+	KADELT TEXT IS 'Deletion Flag' ) ; 
+
+  
+
+GRANT DELETE , INSERT , SELECT , UPDATE   
+
+ON ARCAD_SMPL.HSPCLAM TO PUBLIC ; 
+
+  
+
+GRANT ALTER , DELETE , INDEX , INSERT , REFERENCES , SELECT , UPDATE   
+
+ON ARCAD_SMPL.HSPCLAM TO QPGMR WITH GRANT OPTION ; 
+
+  
+

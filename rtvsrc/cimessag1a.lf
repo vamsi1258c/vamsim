@@ -1,0 +1,36 @@
+      *****************************************************************
+      *  (C) Copyright 2014       Credentials Solutions, LLC
+      *  All Rights Reserved
+      *
+      *     * * * *  Credentials Confidential Source * * * * * * *
+      *  THIS PROGRAM IS AN UNPUBLISHED WORK FULLY PROTECTED BY THE
+      *  UNITED STATES COPYRIGHT LAWS AND IS CONSIDERED A TRADE
+      *  SECRET BELONGING TO THE COPYRIGHT HOLDER.
+      *****************************************************************
+      *
+      *  DATABASE:    CIMESSAG1   -  CREDENTIALS INC Master School
+      *                              Messages file
+      *
+      *  Author      : JJG
+      *  Date Written: 09/03/2014
+      *****************************************************************
+     A          R MESSAGEREC                PFILE(CIMESSAG1)
+     A            JM_FICE
+     A            JM_APPLID
+     A            JM_SCRN_ID
+     A            JM_SCRSECT
+     A            JM_MSG_SEQ
+     A            JM_LANG
+     A            JM_STATUS
+     A            JM_DATEON
+     A            JM_DATEOFF
+     A            JM_CATEGRY
+     A            JM_DESCRP
+     A            JM_TEXT
+     A            JM_CHGDATE
+     A            JM_CHGUSER
+     A          K JM_FICE
+     A          K JM_APPLID
+     A          K JM_SCRN_ID
+     A          K JM_SCRSECT
+     A          K JM_LANG

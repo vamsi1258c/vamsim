@@ -1,0 +1,17 @@
+      *---------------------------------------------------------------*
+      *  FILE NAME: EMPPFK                   CREATED ON: 04/11/2015   *
+      *  PREFIX   : EMP                      CREATED BY: SENECA       *
+      * --------------------------------------------------------------*
+
+     A                                      UNIQUE
+     A          R SREC
+     A            EMPID          5A
+                                            COLHDG('EMPLOYEE ID')
+                                            TEXT('EMPOLOYEE NUMBER')
+     A            EMPNAME       15A
+                                            COLHDG('EMPLOYEE NAME')
+                                            TEXT('EMPLOYEE NAME')
+     A            EMPDOJ         6S 0
+                                            COLHDG('DATE OF JOIN')
+                                            TEXT('EMPLOYEE DATE JOINING')
+     A          K EMPID

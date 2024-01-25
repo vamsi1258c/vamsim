@@ -1,0 +1,30 @@
+      *
+      *  File        : SRVR_GT_PF - SERVER_GT Request and Response File
+      *  Author      : SenecaGlobal
+      *  Date        : 08/11/2020
+      *****************************************************************
+      *****************************************************************
+
+     A          R SRVR_GT_RC
+     A            PRCS_FLG       1A
+     A            REQ_NUM        5A
+     A            IN_JOBNME     10A
+     A            IN_JOBUSR     10A
+     A            IN_JOBNBR      6S 0
+     A            IN_FUNCTN      2A
+     A            IN_FICE        6A
+     A            IN_APPLID      2A
+     A            IN_ORD#        9A
+     A            IN_RECTYP      1A
+     A            IN_OB8         8A
+     A            IN_TEXTV     500A
+     A            IN_ENTBY      10A
+     A            IN_SUBTYP      1A
+     A            IN_OB24       24A
+     A            OUT_JOBNME    10A
+     A            OUT_JOBUSR    10A
+     A            OUT_JOBNBR     6S 0
+     A            OUT_STATUS     2A
+     A            OUT_ORD#_O     9A
+     A            OUT_OB_FLG     1A
+     A            OUT_RESULT   525A

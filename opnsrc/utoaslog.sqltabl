@@ -1,0 +1,28 @@
+--
+--  Table   : DB2 TYPES
+--  Purpose : OAS - Log Request and Response for web applications
+--  Date    : 08/20/20
+--
+--
+Create table UTOASLOG (
+ RR_PRCS   char(1)        not null default '' ,
+ RR_APPNM  char(50)       not null default '' ,
+ RR_REQID  char(30)       not null default '' ,
+ RR_RCTYP  char(3)        not null default '' ,
+ RR_RSEQ   dec(5,0)       not null default 0  ,
+ RR_DATA   varchar(32000) not null default ''
+ ) RCDFMT OASLGRC ;
+
+Label on table UTOASLOG is 'OAS-Request/Response Log for Web Programs';
+
+Label on column UTOASLOG.RR_APPNM  text is
+      'Application Program Name';
+Label on column UTOASLOG.RR_REQID  text is
+      'Request Id';
+Label on column UTOASLOG.RR_RCTYP  text is
+      'Record Type-REQ/RES';
+Label on column UTOASLOG.RR_RSEQ   text is
+      'Record Sequence';
+Label on column UTOASLOG.RR_DATA   text is
+      'Request-Response Data';
+

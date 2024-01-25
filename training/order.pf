@@ -1,0 +1,7 @@
+     A          R ORDERRC
+     A            ODNUM         10A
+     A            ODITM         15A
+     A            ODQTY          5  0
+     A            ODPRC          5  0
+     A          K ODNUM
+     A          K ODITM
